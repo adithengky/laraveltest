@@ -13,6 +13,28 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'admin'], function() {
+	//category
+	Route::get('category', 'Admin\CategoryController@index');
+	Route::post('category', 'Admin\CategoryController@store');
+	Route::put('category/{id}', 'Admin\CategoryController@edit');
+	Route::delete('category/{id}', 'Admin\CategoryController@destroy');
+
+	//tags
+	Route::get('tags', 'Admin\TagsController@index');
+	Route::post('tags', 'Admin\TagsController@store');
+	Route::put('tags/{id}', 'Admin\TagsController@edit');
+	Route::delete('tags/{id}', 'Admin\TagsController@destroy');
+
+	//blog
+	Route::get('blogs', 'Admin\BlogController@index');
+	Route::post('blogs', 'Admin\BlogController@store');
+	Route::put('blogs/{id}', 'Admin\BlogController@edit');
+	Route::get('blogs/{id}', 'Admin\BlogController@show');
+	Route::get('tags/{id}', 'Admin\BlogController@showTag');
+	Route::delete('blogs/{id}', 'Admin\BlogController@destroy');
+	Route::get('archive', 'Admin\BlogController@showArchive');
+	Route::get('blog/category/{id}', 'Admin\BlogController@showCategory');
+	Route::get('archive/all', 'Admin\BlogController@indexArchive');
+
 });
